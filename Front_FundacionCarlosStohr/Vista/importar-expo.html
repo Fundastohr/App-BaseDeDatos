@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Importar Exposición - Fundación Carlos Stohr</title>
+  <meta content="Importar exposición desde archivo Excel o Word" name="description">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template CSS -->
+  <link href="assets/css/minimalist.css" rel="stylesheet">
+
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    .logo span { white-space: nowrap; }
+
+    .tipo-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .tipo-colectiva { background: #e3f2fd; color: #1565c0; }
+    .tipo-individual { background: #fce4ec; color: #880e4f; }
+
+    .file-drop-zone {
+      border: 2px dashed var(--border-color, #dee2e6);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .file-drop-zone:hover,
+    .file-drop-zone.drag-over {
+      border-color: #1a73e8;
+      background: #f0f7ff;
+    }
+    .file-drop-zone .drop-icon {
+      font-size: 2.5rem;
+      color: #9e9e9e;
+      margin-bottom: 0.5rem;
+    }
+    .file-drop-zone.has-file .drop-icon { color: #2e7d32; }
+    .file-drop-zone.has-file { border-color: #2e7d32; background: #f1f8e9; }
+
+    .resultado-card { border-left: 4px solid #1a73e8; border-radius: 8px; }
+    .resultado-card.has-errors { border-left-color: #f57c00; }
+    .resultado-card.all-errors { border-left-color: #c62828; }
+
+    .obras-preview-table th { background: #f5f5f5; font-weight: 600; font-size: 0.8rem; }
+    .obras-preview-table td { font-size: 0.82rem; vertical-align: middle; }
+  </style>
+</head>
+
+<body id="BodyImportarExposicion">
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="pagetitle">
+          <h1>Importar Exposición desde Archivo</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="Principal.html">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="exposiciones-menu.html">Gestionar Exposiciones</a></li>
+              <li class="breadcrumb-item active">Importar Exposición</li>
+            </ol>
+          </nav>
+        </div>
+
+        <!-- Info Card -->
+        <div class="card mb-4">
+          <div class="card-body mt-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title m-0">Información de la Exposición y Carga de Archivo</h5>
+            </div>
+            <div class="alert alert-info d-flex gap-2 py-2 mb-3" style="border-radius:10px; font-size:0.87rem;">
+              <i class="bi bi-info-circle-fill fs-5 flex-shrink-0"></i>
+              <div>
+                <strong>Formatos soportados:</strong> Excel (.xlsx / .xls) y Word (.docx).<br>
+                El sistema detecta automáticamente si la exposición es <strong>Colectiva</strong> (varios artistas) o <strong>Individual</strong> (un artista, múltiples obras) según el contenido del archivo.<br>
+                Las obras se asocian a cada participante dentro de la exposición.
+              </div>
+            </div>
+
+            <form id="formImportarExposicion" class="row g-3 mt-2">
+
+              <!-- Nombre -->
+              <div class="col-md-12">
+                <label for="nombreExpoImportar" class="form-label">Nombre de la Exposición <span class="text-danger">*</span></label>
+                <input type="text" class="form-control form-control-mini" id="nombreExpoImportar"
+                  placeholder="Ej. Exposición Colectiva Iglesias de Nueva Esparta 2019" required>
+              </div>
+
+              <!-- Fecha y Lugar -->
+              <div class="col-md-6">
+                <label for="fechaExpoImportar" class="form-label">Fecha de la Exposición <span class="text-danger">*</span></label>
+                <input type="date" class="form-control form-control-mini" id="fechaExpoImportar" required>
+              </div>
+              <div class="col-md-6">
+                <label for="lugarExpoImportar" class="form-label">Lugar (Opcional)</label>
+                <input type="text" class="form-control form-control-mini" id="lugarExpoImportar"
+                  placeholder="Ej. Centro de Arte Omar Carreño, Edo. Nueva Esparta">
+              </div>
+
+              <!-- Tipo y Tema -->
+              <div class="col-md-6">
+                <label for="tipoExpoImportar" class="form-label">Tipo de Exposición <span class="text-danger">*</span></label>
+                <select class="form-select form-control-mini" id="tipoExpoImportar" required>
+                  <option value="Colectiva">Colectiva (varios artistas)</option>
+                  <option value="Individual">Individual (un artista)</option>
+                </select>
+                <div class="form-text">El sistema detecta el tipo automáticamente del archivo, pero puede sobreescribirlo aquí.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="temaExpoImportar" class="form-label">Tema (Opcional)</label>
+                <input type="text" class="form-control form-control-mini" id="temaExpoImportar"
+                  placeholder="Ej. Paisajismo urbano">
+              </div>
+
+              <!-- Estado por defecto -->
+              <div class="col-md-6">
+                <label for="estadoDefectoExpo" class="form-label">Estado por defecto para participantes nuevos</label>
+                <select class="form-select form-control-mini" id="estadoDefectoExpo">
+                  <option value="">— Sin especificar —</option>
+                </select>
+                <div class="form-text">Opcional. Se asignará a participantes nuevos no registrados previamente.</div>
+              </div>
+
+              <!-- Archivo -->
+              <div class="col-md-6">
+                <label class="form-label">Archivo Excel o Word <span class="text-danger">*</span></label>
+                <div id="dropZone" class="file-drop-zone">
+                  <div class="drop-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                  <p class="mb-1 fw-semibold text-muted" id="dropZoneText">Arrastra tu archivo aquí o haz clic para seleccionarlo</p>
+                  <p class="text-muted small mb-2">Formatos: .xlsx, .xls, .docx</p>
+                  <input class="d-none" type="file" id="archivoExpoImportar" accept=".xlsx,.xls,.docx" required>
+                  <button type="button" class="btn btn-outline-secondary btn-sm" id="btnSeleccionarArchivo">
+                    <i class="bi bi-folder2-open me-1"></i> Seleccionar archivo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Botón submit -->
+              <div class="col-12 text-center mt-4">
+                <button type="submit" id="btnImportarExposicion" class="btn btn-primary px-5">
+                  <i class="bi bi-cloud-arrow-up me-1"></i> Importar Exposición
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="resultadosImportacion" class="mt-4" style="display: none;"></div>
+
+      </div>
+    </main>
+  </div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Controller -->
+  <script type="module" src="C/Controller_Exposicion.js?v=3"></script>
+
+</body>
+
+</html>

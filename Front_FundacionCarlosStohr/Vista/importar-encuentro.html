@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Importar Encuentro de Dibujo Urbano desde Excel - Fundación Carlos Stohr</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/minimalist.css" rel="stylesheet">
+
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    .logo span {
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body id="BodyImportarEncuentro">
+
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+        <div class="pagetitle">
+          <h1>Importar Encuentro de Dibujo Urbano</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="Principal.html">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="encuentros-menu.html">Gestionar Encuentros de Dibujo Urbano</a></li>
+              <li class="breadcrumb-item active">Importar Encuentro</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+
+        <div class="card mb-4">
+          <div class="card-body mt-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title m-0">Información del Encuentro y Carga de Archivo</h5>
+              <button id="btnDescargarPlantillaEncuentro" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-download me-1"></i> Descargar Plantilla
+              </button>
+            </div>
+            <p class="text-muted small">
+              Complete los datos del encuentro y seleccione el archivo Excel (.xlsx o .xls). Se leerán todas las hojas
+              descartando automáticamente participantes duplicados por cédula o nombre.
+              <br><span class="text-secondary"><i class="bi bi-info-circle me-1"></i><strong>Nota:</strong> Puede añadir
+                libremente columnas adicionales en su Excel (ej. <em>Rango de edad, Principios de dibujo,
+                  Municipio</em>) sin que afecten la importación.</span>
+            </p>
+
+            <form id="formImportarEncuentro" class="row g-3 mt-2">
+              <div class="col-md-12">
+                <label for="nombreEncuentro" class="form-label">Nombre del Encuentro <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control form-control-mini" id="nombreEncuentro"
+                  placeholder="Ej. Documentando La Pastora" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="fechaEncuentro" class="form-label">Fecha del Encuentro <span
+                    class="text-danger">*</span></label>
+                <input type="date" class="form-control form-control-mini" id="fechaEncuentro" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="lugarEncuentro" class="form-label">Lugar del Encuentro (Opcional)</label>
+                <input type="text" class="form-control form-control-mini" id="lugarEncuentro"
+                  placeholder="Ej. La Pastora, Caracas">
+              </div>
+
+              <div class="col-md-6">
+                <label for="estadoDefecto" class="form-label">Estado por defecto para participantes nuevos</label>
+                <select class="form-select form-control-mini" id="estadoDefecto">
+                  <option value="">&#x2014; Sin especificar &#x2014;</option>
+                </select>
+                <div class="form-text">Se asignará a los participantes que no existían previamente en la base de datos.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="archivoExcel" class="form-label">Archivo Excel <span class="text-danger">*</span></label>
+                <input class="form-control form-control-mini" type="file" id="archivoExcel" accept=".xlsx, .xls"
+                  required>
+                <div class="form-text">Archivo con las respuestas de formulario / lista de asistentes.</div>
+              </div>
+
+              <div class="col-12 text-center mt-4">
+                <button type="submit" id="btnImportarEncuentro" class="btn btn-primary px-5">
+                  <i class="bi bi-cloud-arrow-up me-1"></i> Importar Encuentro
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div id="resultadosImportacion" class="mt-4" style="display: none;">
+          <!-- Aquí se renderizan los resultados detallados -->
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script type="module" src="C/Controller_Encuentro.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+﻿{
+  "name": "front-fundacion-carlos-stohr",
+  "version": "1.0.0",
+  "description": "Panel de administración web para la Fundación Carlos Stohr",
+  "scripts": {
+    "start": "live-server Vista --port=3001 --no-browser --host=0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fundastohr/App-BaseDeDatos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fundastohr/App-BaseDeDatos/issues"
+  },
+  "homepage": "https://github.com/Fundastohr/App-BaseDeDatos#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "license": "ISC"
+}

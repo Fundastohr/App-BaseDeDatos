@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Importar Participantes - Fundación Carlos Stohr</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/minimalist.css" rel="stylesheet">
+  
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+        .logo span {
+            white-space: nowrap; /* Mantener el texto en una sola línea */
+        }
+    </style>
+</head>
+
+<body id="BodyImportarParticipantes">
+
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+
+  <!-- ======= Header ======= -->
+  
+
+  
+
+    <div class="pagetitle">
+      <h1>Importar Participantes</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="Principal.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="participantes-menu.html">Gestionar Participantes</a></li>
+          <li class="breadcrumb-item active">Importar Participantes</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <div class="card mb-4">
+      <div class="card-body mt-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="card-title m-0">Subir Archivo Excel</h5>
+          <button id="btnDescargarPlantilla" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-download"></i> Descargar Plantilla
+          </button>
+        </div>
+        
+        <p class="text-muted small">Seleccione un archivo Excel (.xlsx o .xls) con la lista de participantes. El archivo debe contener los encabezados especificados en la plantilla.</p>
+        
+        <form id="formImportarExcel" class="mt-4">
+          <div class="mb-3">
+            <label for="archivoExcel" class="form-label">Archivo Excel <span class="text-danger">*</span></label>
+            <input class="form-control" type="file" id="archivoExcel" accept=".xlsx, .xls, .csv" required>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button type="submit" id="btnImportar" class="btn btn-primary px-5">Importar</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    
+    <div id="resultadosImportacion" class="mt-4" style="display: none;">
+      <!-- Aquí se renderizan los resultados de la importación -->
+    </div>
+     
+  
+      </div>
+    </main>
+  </div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script type="module" src="C/Controller_Participantes.js"></script>
+
+</body>
+
+</html>

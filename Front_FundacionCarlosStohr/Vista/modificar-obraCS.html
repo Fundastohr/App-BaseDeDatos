@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Modificar Obra de Carlos Stohr - Fundación Carlos Stohr</title>
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/css/minimalist.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <style>
+    .logo span { white-space: nowrap; }
+    .help-text { font-size: 0.875rem; opacity: 0.85; }
+    tr.row-selected {
+      outline: 2px solid rgba(13,110,253,.35);
+      outline-offset: -2px;
+      background: rgba(13,110,253,.06);
+    }
+    .sticky-form-header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 5;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+    }
+  </style>
+</head>
+
+<body id="BodyModificarObraCS">
+
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+
+    <div class="pagetitle">
+      <h1>Modificar Obra de Carlos Stohr</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="Principal.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="obras-menu.html">Gestionar Obras de Carlos Stohr</a></li>
+          <li class="breadcrumb-item active">Modificar Obra de Carlos Stohr</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Search -->
+    <div style="display:flex;align-items:right;">
+      <form id="searchObras" class="row g-3" style="width:40%;padding-bottom:15px;">
+        <div class="input-group">
+          <input id="search-input-obraCS" style="width:50%;" type="text" class="form-control form-control-mini" placeholder="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+
+    <section class="section">
+      <div class="row">
+        <!-- Tabla -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tabla de Obras de Carlos Stohr</h5>
+              <p class="help-text mb-2">Haz clic en una obra para cargar sus datos en el panel de edición.</p>
+
+              <div style="overflow-y:auto; max-height:520px;">
+                <table class="table datatable table-hover" id="tablaObrasCSModificar">
+                  <thead>
+                    <tr>
+                      <th data-type="number">ID</th>
+                      <th>Título</th>
+                      <th data-type="number">Año</th>
+                      <th>Ubicación</th>
+                      <th>N° Obra</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbodyObrasCSModificar"></tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="sticky-form-header">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h5 class="card-title mb-1">Editar datos</h5>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bg-secondary" id="obraSelectedBadge">Sin selección</span>
+                      <small class="text-muted" id="obraSelectedSubtitle">Selecciona una obra de la tabla para ver/editar sus datos.</small>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-outline-secondary btn-sm" id="limpiarSeleccionObra">
+                    Limpiar
+                  </button>
+                </div>
+              </div>
+
+              <form class="row g-3 needs-validation mt-2" id="formModificarObraCS" novalidate onsubmit="event.preventDefault();">
+                <!-- PK -->
+                <input type="hidden" id="modificarIdObra">
+
+                <!-- numero_obra -->
+                <div class="col-md-6">
+                  <label for="modificarNumeroObra" class="form-label">Número de obra</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarNumeroObra" placeholder="4687" disabled>
+                  <div class="invalid-feedback">Ingrese el número de obra.</div>
+                </div>
+
+                <!-- anio -->
+                <div class="col-md-6">
+                  <label for="modificarAnioObra" class="form-label">Año</label>
+                  <input type="number" class="form-control form-control-mini" id="modificarAnioObra" placeholder="2010" min="0" step="1" disabled>
+                  <div class="invalid-feedback">Ingrese un año válido.</div>
+                </div>
+
+                <!-- titulo -->
+                <div class="col-md-12">
+                  <label for="modificarTituloObra" class="form-label">Título</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarTituloObra" placeholder="Nuestra virgencita del valle" required disabled>
+                  <div class="invalid-feedback">El título es obligatorio.</div>
+                </div>
+
+                <!-- tecnica -->
+                <div class="col-md-12">
+                  <label for="modificarTecnicaObra" class="form-label">Técnica</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarTecnicaObra" placeholder="Acuarela y Tinta China sobre papel" disabled>
+                </div>
+
+                <!-- ancho / alto -->
+                <div class="col-md-6">
+                  <label for="modificarAnchoObra" class="form-label">Ancho (cm)</label>
+                  <input type="number" class="form-control form-control-mini" id="modificarAnchoObra" placeholder="23.50" min="0" step="0.01" disabled>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="modificarAltoObra" class="form-label">Alto (cm)</label>
+                  <input type="number" class="form-control form-control-mini" id="modificarAltoObra" placeholder="32.50" min="0" step="0.01" disabled>
+                </div>
+
+                <!-- tema -->
+                <div class="col-md-6">
+                  <label for="modificarTemaObra" class="form-label">Tema</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarTemaObra" placeholder="Virgen Del Valle" disabled>
+                </div>
+
+                <!-- estilo -->
+                <div class="col-md-6">
+                  <label for="modificarEstiloObra" class="form-label">Estilo</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarEstiloObra" placeholder="(Opcional)" disabled>
+                </div>
+
+                <!-- ubicacion -->
+                <div class="col-md-12">
+                  <label for="modificarUbicacionObra" class="form-label">Ubicación</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarUbicacionObra" placeholder="Caracas" disabled>
+                </div>
+
+                <!-- observacion -->
+                <div class="col-md-12">
+                  <label for="modificarObservacionObra" class="form-label">Observación</label>
+                  <textarea class="form-control form-control-mini" id="modificarObservacionObra" rows="3" placeholder="Notas adicionales..." disabled></textarea>
+                </div>
+
+                <!-- created_at / updated_at -->
+                <div class="col-md-6">
+                  <label for="modificarCreatedAtObra" class="form-label">Creado</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarCreatedAtObra" readonly placeholder="—">
+                </div>
+                <div class="col-md-6">
+                  <label for="modificarUpdatedAtObra" class="form-label">Actualizado</label>
+                  <input type="text" class="form-control form-control-mini" id="modificarUpdatedAtObra" readonly placeholder="—">
+                </div>
+
+                <div class="text-center mt-2">
+                  <button id="modificarObraCS" type="button" class="btn btn-primary" disabled>Modificar</button>
+                </div>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+      </div>
+    </main>
+  </div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Table sorter -->
+  <script src="Modelo/Utils/TableSorter.js"></script>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Controller -->
+  <script type="module" src="C/Controller_Obras.js"></script>
+
+  <!-- Search rápido (si quieres que funcione sin datatables) -->
+  <script>
+    document.getElementById("searchObras")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const q = (document.getElementById("search-input-obraCS")?.value || "").toLowerCase();
+      const rows = document.querySelectorAll("#tablaObrasCSModificar tbody tr");
+      rows.forEach((row) => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+      });
+    });
+  </script>
+
+  <!-- ✅ Interacción: click en tabla -> preview en panel -->
+  <script>
+    (function () {
+      if (window.__bindObrasModificarPreview) return;
+      window.__bindObrasModificarPreview = true;
+
+      const table = document.getElementById("tablaObrasCSModificar");
+      const tbody = document.getElementById("tbodyObrasCSModificar") || table?.querySelector("tbody");
+      const form = document.getElementById("formModificarObraCS");
+
+      const badge = document.getElementById("obraSelectedBadge");
+      const subtitle = document.getElementById("obraSelectedSubtitle");
+      const btnModificar = document.getElementById("modificarObraCS");
+      const btnLimpiar = document.getElementById("limpiarSeleccionObra");
+
+      const inputIdsToEnable = [
+        "modificarNumeroObra",
+        "modificarAnioObra",
+        "modificarTituloObra",
+        "modificarTecnicaObra",
+        "modificarAnchoObra",
+        "modificarAltoObra",
+        "modificarTemaObra",
+        "modificarEstiloObra",
+        "modificarUbicacionObra",
+        "modificarObservacionObra",
+      ];
+
+      const setVal = (id, v) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.value = (v === null || v === undefined) ? "" : String(v);
+      };
+
+      const setDisabled = (disabled) => {
+        inputIdsToEnable.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.disabled = disabled;
+        });
+        if (btnModificar) btnModificar.disabled = disabled;
+      };
+
+      const parseIdFromRow = (tr) => {
+        const idFromDataset = tr?.dataset?.id;
+        if (idFromDataset) return idFromDataset.trim();
+
+        const firstCell = tr?.children?.[0]?.textContent;
+        return (firstCell || "").trim();
+      };
+
+      const fmtTs = (ts) => {
+        if (!ts) return "—";
+        const d = new Date(ts);
+        if (isNaN(d.getTime())) return String(ts);
+        return d.toLocaleString();
+      };
+
+      const resolveObraById = (id) => {
+        // Busca en el "store" de tu Request_Obra si existe
+        const store =
+          window.requestObra?.obras ||
+          window.requestObra?.Obras ||
+          window.requestObraCS?.obras ||
+          [];
+
+        const sid = String(id);
+        return store.find((o) => String(o?.id_obra ?? o?.numero_obra ?? o?.id) === sid) || null;
+      };
+
+      const fillFormFromObra = (obra, fallbackRow) => {
+        // PK
+        setVal("modificarIdObra", obra?.id_obra ?? obra?.id ?? "");
+
+        // Campos reales
+        setVal("modificarNumeroObra", obra?.numero_obra ?? "");
+        setVal("modificarTituloObra", obra?.titulo ?? obra?.nombre ?? "");
+        setVal("modificarTecnicaObra", obra?.tecnica ?? "");
+        setVal("modificarAnchoObra", obra?.ancho ?? "");
+        setVal("modificarAltoObra", obra?.alto ?? "");
+        setVal("modificarAnioObra", obra?.anio ?? "");
+        setVal("modificarTemaObra", obra?.tema ?? "");
+        setVal("modificarEstiloObra", obra?.estilo ?? "");
+        setVal("modificarUbicacionObra", obra?.ubicacion ?? "");
+        setVal("modificarObservacionObra", obra?.observacion ?? "");
+
+        // Timestamps (solo lectura)
+        setVal("modificarCreatedAtObra", fmtTs(obra?.created_at));
+        setVal("modificarUpdatedAtObra", fmtTs(obra?.updated_at));
+
+        // Si no hay obra completa, usa celdas visibles como fallback
+        if (!obra && fallbackRow) {
+          const cells = fallbackRow.querySelectorAll("td");
+          setVal("modificarIdObra", (cells?.[0]?.textContent || "").trim());
+          setVal("modificarTituloObra", (cells?.[1]?.textContent || "").trim());
+          setVal("modificarAnioObra", (cells?.[2]?.textContent || "").trim());
+          setVal("modificarUbicacionObra", (cells?.[3]?.textContent || "").trim());
+          setVal("modificarNumeroObra", (cells?.[4]?.textContent || "").trim());
+          setVal("modificarCreatedAtObra", "—");
+          setVal("modificarUpdatedAtObra", "—");
+        }
+      };
+
+      const setSelectedUI = (tr, obraId, obraTitulo) => {
+        // Quita selección previa
+        tbody?.querySelectorAll("tr.row-selected").forEach((x) => x.classList.remove("row-selected"));
+        tr?.classList.add("row-selected");
+
+        if (badge) badge.textContent = obraId ? `ID ${obraId}` : "Seleccionado";
+        if (subtitle) subtitle.textContent = obraTitulo ? obraTitulo : "Obra seleccionada";
+      };
+
+      // Estado inicial
+      setDisabled(true);
+
+      btnLimpiar?.addEventListener("click", () => {
+        tbody?.querySelectorAll("tr.row-selected").forEach((x) => x.classList.remove("row-selected"));
+        if (badge) badge.textContent = "Sin selección";
+        if (subtitle) subtitle.textContent = "Selecciona una obra de la tabla para ver/editar sus datos.";
+
+        // limpia campos
+        [
+          "modificarIdObra",
+          ...inputIdsToEnable,
+          "modificarCreatedAtObra",
+          "modificarUpdatedAtObra",
+        ].forEach((id) => setVal(id, ""));
+
+        setVal("modificarCreatedAtObra", "—");
+        setVal("modificarUpdatedAtObra", "—");
+        setDisabled(true);
+      });
+
+      tbody?.addEventListener("click", (event) => {
+        const tr = event.target?.closest("tr");
+        if (!tr) return;
+
+        const id = parseIdFromRow(tr);
+        if (!id) return;
+
+        const obra = resolveObraById(id);
+
+        // llena formulario
+        fillFormFromObra(obra, tr);
+
+        // habilita edición
+        setDisabled(false);
+
+        // UI feedback
+        const titulo = obra?.titulo ?? tr?.children?.[1]?.textContent?.trim() ?? "";
+        setSelectedUI(tr, id, titulo);
+
+        // Scroll suave al formulario para “sentirlo” interactivo
+        form?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    })();
+  </script>
+</body>
+</html>

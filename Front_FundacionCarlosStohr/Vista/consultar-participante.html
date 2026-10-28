@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Consultar Participante - Fundación Carlos Stohr</title>
+
+  <link href="assets/img/favicon.png" rel="icon" />
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+
+  <link href="assets/css/minimalist.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+  <style>
+    /* ── Modal Participaciones ── */
+    #modalParticipaciones .modal-header {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: #fff;
+      border-radius: 12px 12px 0 0;
+    }
+
+    #modalParticipaciones .modal-header .btn-close {
+      filter: invert(1);
+    }
+
+    #modalParticipaciones .modal-content {
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+      border: none;
+    }
+
+    #modalParticipaciones .nav-tabs .nav-link {
+      font-weight: 600;
+      color: #495057;
+      border-radius: 8px 8px 0 0;
+      transition: background .2s, color .2s;
+    }
+
+    #modalParticipaciones .nav-tabs .nav-link.active {
+      background: #1a73e8;
+      color: #fff;
+      border-color: #1a73e8;
+    }
+
+    #modalParticipaciones .tab-content {
+      padding: 16px 0 0;
+    }
+
+    .participacion-card {
+      border-left: 4px solid #1a73e8;
+      border-radius: 8px;
+      background: #f8f9ff;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .participacion-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(26, 115, 232, .15);
+    }
+
+    .participacion-card.taller {
+      border-left-color: #43a047;
+      background: #f6fdf6;
+    }
+
+    .participacion-card.expo {
+      border-left-color: #e67e22;
+      background: #fffbf5;
+    }
+
+    .participacion-card .badge-tipo {
+      font-size: .72rem;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .participacion-card .card-titulo {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .participacion-card .card-meta {
+      font-size: .82rem;
+      color: #6c757d;
+    }
+
+    .participacion-card .card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-right: 14px;
+    }
+
+    #modalParticipaciones .spinner-border {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-width: .3em;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 32px 0;
+      color: #adb5bd;
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* botón acción en la tabla */
+    .btn-ver-participaciones {
+      font-size: .78rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Accordion de obras en modal de exposiciones ── */
+    .expo-expandable { cursor: default; }
+
+    .btn-toggle-obras {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      padding: 4px 12px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: #e67e22;
+      background: transparent;
+      border: 1px solid #e67e22;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+
+    .btn-toggle-obras:hover {
+      background: #e67e22;
+      color: #fff;
+    }
+
+    .btn-toggle-obras .toggle-icon {
+      transition: transform .25s ease;
+    }
+
+    .obras-accordion {
+      margin-top: 10px;
+      border-top: 1px dashed #f0c98a;
+      padding-top: 10px;
+    }
+
+    .obras-accordion-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .obra-detalle-item {
+      background: #fff8ef;
+      border: 1px solid #f0c98a;
+      border-radius: 7px;
+      padding: 10px 14px;
+      font-size: .82rem;
+    }
+
+    .obra-detalle-item .obra-titulo-obra {
+      font-size: .9rem;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .obra-field {
+      margin-bottom: 3px;
+      color: #555;
+    }
+
+    .obra-label {
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body id="BodyConsultarParticipante">
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">Consultar Participantes</h1>
+
+        <!-- Filtros Minimalistas -->
+        <div class="filters-bar">
+          <div class="form-group-mini">
+            <label>Buscar</label>
+            <form id="search-form" onsubmit="event.preventDefault();" style="margin:0;">
+              <input id="search-input" type="search" class="form-control-mini" placeholder="Nombre, cédula..."
+                aria-label="Buscar" />
+            </form>
+          </div>
+
+          <div class="form-group-mini">
+            <label>Edad</label>
+            <div style="display:flex; gap: 5px; align-items:center;">
+              <input type="number" id="edad-minima" class="form-control-mini" style="min-width: 70px; width: 70px;"
+                min="0" placeholder="Mín" />
+              <span class="mx-1">-</span>
+              <input type="number" id="edad-maxima" class="form-control-mini" style="min-width: 70px; width: 70px;"
+                min="0" placeholder="Máx" />
+              <button class="btn-link-custom ms-2" onclick="resetearFiltroEdad()" title="Resetear" type="button">
+                <i class="bi bi-arrow-counterclockwise"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group-mini">
+            <label>Estado Geográfico</label>
+            <div class="dropdown">
+              <button class="form-control-mini dropdown-toggle text-start" type="button" id="dropdownEstados"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                style="background: white; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+                <span id="estados-seleccionados-texto">Todos los estados</span>
+              </button>
+
+              <div class="dropdown-menu p-3" aria-labelledby="dropdownEstados" style="width: 250px;">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="todos-estados" checked
+                    onchange="toggleTodosEstados()" />
+                  <label class="form-check-label" for="todos-estados">Seleccionar todos</label>
+                </div>
+                <hr class="my-1" />
+                <div style="max-height: 200px; overflow-y: auto;" id="lista-estados-container">
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                  <button class="btn-link-custom text-danger" onclick="deseleccionarTodosEstados()" type="button"
+                    style="padding:0;">Limpiar</button>
+                  <button class="btn-primary-custom py-1 px-3" onclick="aplicarFiltros()" type="button">Aplicar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-mini" style="margin-left: auto;">
+            <button id="botonCopiar" class="btn-primary-custom" type="button">
+              <i class="bi bi-clipboard"></i> Copiar correos
+            </button>
+          </div>
+        </div>
+
+        <div class="minimalist-table-container mt-4">
+          <div class="table-responsive">
+            <table class="minimalist-table" id="tablaParticipantes">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cédula</th>
+                  <th>Fecha de Nacimiento</th>
+                  <th>Edad</th>
+                  <th>Correo</th>
+                  <th>Instagram</th>
+                  <th>Telefono</th>
+                  <th>Ciudad</th>
+                  <th>Estado</th>
+                  <th>Participaciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-participantes"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MODAL: Participaciones del participante
+  ══════════════════════════════════════════ -->
+  <div class="modal fade" id="modalParticipaciones" tabindex="-1" aria-labelledby="modalParticipacionesLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Header -->
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title mb-0" id="modalParticipacionesLabel">
+              <i class="bi bi-person-badge me-2"></i>
+              <span id="modal-nombre-participante">Participante</span>
+            </h5>
+            <small class="opacity-75" id="modal-cedula-participante"></small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs" id="participacionesTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-concursos-btn" data-bs-toggle="tab"
+                data-bs-target="#tab-concursos" type="button" role="tab" aria-controls="tab-concursos"
+                aria-selected="true">
+                <i class="bi bi-trophy me-1"></i> Concursos
+                <span class="badge bg-primary ms-1" id="badge-concursos">0</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-talleres-btn" data-bs-toggle="tab" data-bs-target="#tab-talleres"
+                type="button" role="tab" aria-controls="tab-talleres" aria-selected="false">
+                <i class="bi bi-easel me-1"></i> Talleres
+                <span class="badge bg-success ms-1" id="badge-talleres">0</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-exposiciones-btn" data-bs-toggle="tab" data-bs-target="#tab-exposiciones"
+                type="button" role="tab" aria-controls="tab-exposiciones" aria-selected="false">
+                <i class="bi bi-images me-1"></i> Exposiciones
+                <span class="badge bg-warning text-dark ms-1" id="badge-exposiciones">0</span>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Tab content -->
+          <div class="tab-content" id="participacionesTabContent">
+
+            <!-- Concursos -->
+            <div class="tab-pane fade show active" id="tab-concursos" role="tabpanel"
+              aria-labelledby="tab-concursos-btn">
+              <div id="contenedor-concursos">
+                <div class="d-flex justify-content-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Talleres -->
+            <div class="tab-pane fade" id="tab-talleres" role="tabpanel" aria-labelledby="tab-talleres-btn">
+              <div id="contenedor-talleres">
+                <div class="d-flex justify-content-center py-4">
+                  <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exposiciones -->
+            <div class="tab-pane fade" id="tab-exposiciones" role="tabpanel" aria-labelledby="tab-exposiciones-btn">
+              <div id="contenedor-exposiciones">
+                <div class="d-flex justify-content-center py-4">
+                  <div class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /tab-content -->
+        </div><!-- /modal-body -->
+
+        <div class="modal-footer">
+          <span class="text-muted small me-auto" id="modal-resumen-total"></span>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ✅ IMPORTANTE: ruta consistente -->
+  <script type="module" src="C/Controller_Participantes.js"></script>
+
+  <!-- Puente filtros → Request (se mantiene) -->
+  <script>
+    let todosEstadosSeleccionados = true;
+
+    window.aplicarFiltros = function () {
+      if (window.requestParticipante && typeof window.requestParticipante.aplicarFiltrosYRenderizar === "function") {
+        window.requestParticipante.aplicarFiltrosYRenderizar({ resetPage: true });
+      }
+    };
+
+    window.resetearFiltroEdad = function () {
+      document.getElementById("edad-minima").value = "";
+      document.getElementById("edad-maxima").value = "";
+      window.aplicarFiltros();
+    };
+
+    function toggleTodosEstados() {
+      const checkTodos = document.getElementById("todos-estados");
+      todosEstadosSeleccionados = checkTodos.checked;
+
+      document.querySelectorAll(".estado-checkbox").forEach((checkbox) => {
+        checkbox.checked = todosEstadosSeleccionados;
+        checkbox.disabled = todosEstadosSeleccionados;
+      });
+
+      actualizarTextoEstados();
+      window.aplicarFiltros();
+    }
+
+    function deseleccionarTodosEstados() {
+      document.getElementById("todos-estados").checked = false;
+      document.querySelectorAll(".estado-checkbox").forEach((checkbox) => {
+        checkbox.checked = false;
+        checkbox.disabled = false;
+      });
+      todosEstadosSeleccionados = false;
+      actualizarTextoEstados();
+      window.aplicarFiltros();
+    }
+
+    function actualizarTextoEstados() {
+      const checks = Array.from(document.querySelectorAll(".estado-checkbox"));
+      const seleccionados = todosEstadosSeleccionados ? [] : checks.filter(c => c.checked).map(c => c.value);
+
+      const t = document.getElementById("estados-seleccionados-texto");
+      if (todosEstadosSeleccionados || seleccionados.length === 0) t.textContent = "Todos los estados";
+      else if (seleccionados.length === 1) t.textContent = seleccionados[0] === "__sin_estado__" ? "Sin estado" : seleccionados[0];
+      else t.textContent = `${seleccionados.length} seleccionados`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      toggleTodosEstados();
+
+      document.getElementById("search-input")?.addEventListener("input", () => window.aplicarFiltros());
+      document.getElementById("edad-minima")?.addEventListener("input", () => window.aplicarFiltros());
+      document.getElementById("edad-maxima")?.addEventListener("input", () => window.aplicarFiltros());
+
+      // ✅ Event delegation: los checkboxes de estado se generan dinámicamente
+      // después del DOMContentLoaded, así que no podemos bindearlos directamente aquí.
+      const estadosContainer = document.getElementById("lista-estados-container");
+      if (estadosContainer) {
+        estadosContainer.addEventListener("change", (e) => {
+          if (e.target.classList.contains("estado-checkbox")) {
+            actualizarTextoEstados();
+            window.aplicarFiltros();
+          }
+        });
+      }
+    });
+
+    window.toggleTodosEstados = toggleTodosEstados;
+    window.deseleccionarTodosEstados = deseleccionarTodosEstados;
+  </script>
+</body>
+
+</html>

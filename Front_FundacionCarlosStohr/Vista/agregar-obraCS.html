@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>Agregar Obra - Fundación Carlos Stohr</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon" />
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+
+  <link href="assets/css/minimalist.css" rel="stylesheet" />
+
+  <style>
+    .logo span {
+      white-space: nowrap;
+    }
+
+    /* Pequeño ajuste opcional para que el footer sticky (mobile) no tape contenido */
+    @media (max-width: 767.98px) {
+      #main.main {
+        padding-bottom: 90px;
+      }
+    }
+
+    /* Barra inferior opcional estilo NiceAdmin (solo móvil) */
+    .sticky-actions {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1030;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(0, 0, 0, .08);
+      padding: .75rem 0;
+    }
+  </style>
+</head>
+
+<body id="BodyAgregarObra">
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1 class="page-title mb-0">Agregar Obra de Carlos Stohr</h1>
+          <a href="consultar-obraCS.html" class="btn btn-outline-secondary btn-sm" style="border-radius: 8px;">Volver</a>
+        </div>
+
+        <section class="section">
+          <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+            <div class="card-body p-4">
+
+              <!-- Título interno tipo NiceAdmin -->
+              <h5 class="card-title fw-bold text-dark mb-4" style="font-size: 1.1rem;"><i class="bi bi-pencil-square text-primary me-2"></i> Datos de la obra</h5>
+
+              <!-- ✅ Form NiceAdmin: row g-3 needs-validation -->
+              <form id="form-obra" class="row g-4 needs-validation" novalidate>
+
+                <!-- Numero Obra -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="numero_obra">Número de Obra</label>
+                  <input id="numero_obra" class="form-control form-control-mini" type="text" placeholder="Ej: 102, S/N" />
+                  <div class="form-text" style="font-size: 12px;">Opcional. Puede ser texto.</div>
+                </div>
+
+                <!-- Titulo -->
+                <div class="col-md-9">
+                  <label class="form-label text-muted fw-semibold" for="titulo">Título <span class="text-danger">*</span></label>
+                  <input id="titulo" class="form-control form-control-mini" type="text" required placeholder="Título de la obra" />
+                  <div class="invalid-feedback">El título es obligatorio.</div>
+                </div>
+
+                <!-- Técnica -->
+                <div class="col-md-6">
+                  <label class="form-label text-muted fw-semibold" for="tecnica">Técnica</label>
+                  <input id="tecnica" class="form-control form-control-mini" type="text" placeholder="Acuarela, óleo, tinta..." />
+                </div>
+
+                <!-- Ancho -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="ancho">Ancho</label>
+                  <input id="ancho" class="form-control form-control-mini" type="text" inputmode="decimal" placeholder="cm (ej: 23.5 o 23,5)" />
+                </div>
+
+                <!-- Alto -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="alto">Alto</label>
+                  <input id="alto" class="form-control form-control-mini" type="text" inputmode="decimal" placeholder="cm (ej: 32.5 o 32,5)" />
+                </div>
+
+                <!-- Año -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="anio">Año</label>
+                  <input id="anio" class="form-control form-control-mini" type="number" inputmode="numeric" placeholder="Ej: 2010" />
+                </div>
+
+                <!-- Tema -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="tema">Tema</label>
+                  <input id="tema" class="form-control form-control-mini" type="text" placeholder="Tema (opcional)" />
+                </div>
+
+                <!-- Estilo -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="estilo">Estilo</label>
+                  <input id="estilo" class="form-control form-control-mini" type="text" placeholder="Estilo (opcional)" />
+                </div>
+
+                <!-- Ubicacion -->
+                <div class="col-md-3">
+                  <label class="form-label text-muted fw-semibold" for="ubicacion">Ubicación</label>
+                  <input id="ubicacion" class="form-control form-control-mini" type="text" placeholder="Ubicación (opcional)" />
+                </div>
+
+                <!-- Observación -->
+                <div class="col-12">
+                  <label class="form-label text-muted fw-semibold" for="observacion">Observación</label>
+                  <textarea id="observacion" class="form-control form-control-mini" rows="3" placeholder="Observaciones (opcional)" style="border-radius: 12px;"></textarea>
+                </div>
+
+                <!-- Acciones (igual estilo que paneles: text-center) -->
+                <div class="col-12 mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                  <button id="limpiarObra" class="btn btn-light fw-bold text-secondary" style="border-radius: 8px; padding: 10px 20px;" type="button">
+                    Limpiar
+                  </button>
+                  <button id="agregarObra" class="btn-primary-custom" type="submit" style="border: none;">
+                    <span class="cs-btn-text">Guardar Obra</span>
+                  </button>
+                </div>
+
+              </form>
+              <!-- End Form -->
+
+            </div>
+          </div>
+
+          <!-- Barra sticky opcional (solo móvil) compatible con tu Controller -->
+          <div class="sticky-actions d-md-none">
+            <div class="container">
+              <div class="d-flex gap-2 justify-content-end">
+                <button id="limpiarObraSticky" class="btn btn-secondary" type="button">
+                  Limpiar
+                </button>
+                <button id="agregarObraSticky" class="btn btn-primary" type="button">
+                  <span class="cs-btn-text">Guardar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Controller -->
+  <script type="module" src="C/Controller_Obras.js"></script>
+
+</body>
+
+</html>

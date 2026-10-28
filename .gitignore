@@ -1,0 +1,50 @@
+# Dependencias
+node_modules/
+**/node_modules/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Carpeta de entrega al cliente (no va en el repo)
+entrega_cliente/
+FundacionCarlosStohr_Sistema.zip
+sc_dump_export.sql
+
+# Cache y build artifacts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker (volúmenes locales, no van al repo)
+postgres_data/
+
+fundaStohrBD/
+
+# Instrucciones internas del agente de IA (no van al repo)
+.agents/
+
+# Scripts utilitarios y temporales (no son parte del sistema)
+convertir_a_pdf.py
+totalPages
+Front_FundacionCarlosStohr/Vista/fix_issues.py
+Front_FundacionCarlosStohr/Vista/fix_menus.py
+Front_FundacionCarlosStohr/Vista/refactor.py
+

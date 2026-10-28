@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Eliminar Concurso - Fundación Carlos Stohr</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/minimalist.css" rel="stylesheet">
+  
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+<style>
+        .logo span {
+            white-space: nowrap; /* Mantener el texto en una sola línea */
+        }
+    </style>
+</head>
+
+<body id="BodyEliminarConcurso">
+
+  <div class="minimalist-layout">
+    <!-- Sidebar -->
+    <aside class="minimalist-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/logofundacion.png" alt="logo">
+        <span class="brand-title">Fundación<br>Carlos Stohr</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="Principal.html" class="sidebar-nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="concurso-menu.html" class="sidebar-nav-link active">
+            <i class="bi bi-trophy"></i> Concursos
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="exposiciones-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-easel"></i> Exposiciones
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="talleres-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-people"></i> Talleres
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="encuentros-menu.html" class="sidebar-nav-link">
+            <i class="bi bi-brush"></i> Encuentros de Dibujo Urbano
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="participantes-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-person"></i> Participantes
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="obras-menu.html" class="sidebar-nav-link ">
+            <i class="bi bi-palette"></i> Obras de Carlos Stohr
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="minimalist-main">
+      <!-- Topbar -->
+      <header class="minimalist-topbar">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bi bi-person"></i></div>
+          <span>Usuario Admin</span>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+
+  
+  
+
+  
+
+    <div class="pagetitle">
+      <h1>Eliminar Concurso</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="concurso-menu.html">Gestionar concursos</a> </li>
+          <li class="breadcrumb-item active">Eliminar Concurso</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- SEARCH BAR AYUDA -->
+    <div style="display:flex;align-items: right;">
+      <form id="searchConcursos" class="row g-3" style="width:40%;padding-bottom:15px;">
+        <div class="input-group"> 
+          <i class="fa fa-search"></i>
+          <input id="search-input" style="width:50%;" type="text" class="form-control form-control-mini" placeholder="Search">
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("searchConcursos").addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+      // Obtén el valor de búsqueda ingresado por el usuario
+      var searchText = document.getElementById("search-input").value.toLowerCase();
+
+      // Filtra las filas de la tabla según el texto de búsqueda
+      var rows = document.querySelectorAll("tbody tr");
+      rows.forEach(function(row) {
+        var rowData = row.textContent.toLowerCase();
+        if (rowData.indexOf(searchText) === -1) {
+          row.style.display = "none"; // Oculta las filas que no coinciden con la búsqueda
+        } else {
+          row.style.display = ""; // Muestra las filas que coinciden con la búsqueda
+        }
+      });
+    });
+    </script>
+    <!-- SEARCH BAR AYUDA -->
+    
+
+    <section class="section">
+      <div class="row">
+          <!-- Columna para la tabla con scroll -->
+          <div class="col-lg-6">
+              <div class="card">
+                  <div class="card-body">
+                      <h5 class="card-title">Tabla de Concursos</h5>
+                      <div style="overflow-y: auto; max-height: 500px;">
+                          <table class="table datatable table-hover" id="tablaConcursos">
+                              <thead>
+                                  <tr>
+                                      <th>Nombre Concurso</th>
+                                      <th data-type="date">Fecha del Concurso</th>
+                                      <th>Categoria</th>
+                                      <th>Tema</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                  </tr>
+                              </tbody> 
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- Columna para el formulario -->
+            <div class="col-lg-6">
+              <div class="card">
+                  <div class="card-body">
+                      <form class="row g-3 needs-validation" id="formModificarConcurso" novalidate onsubmit="event.preventDefault();">
+                          <div class="col-md-12">
+                              <label for="nombreConcurso" class="form-label">Nombre Concurso</label>
+                              <input type="text" class="form-control form-control-mini" id="nombreConcurso" placeholder="Concurso Fundastohr" required readonly>
+                              <div class="invalid-feedback">Por favor ingrese el nombre del concurso</div>
+                          </div>
+                          <div class="col-md-12">
+                              <label for="fechaConcurso" class="form-label">Fecha del Concurso</label>
+                              <input type="date" class="form-control form-control-mini" id="fechaConcurso" required readonly>
+                              <div class="invalid-feedback">Por favor ingrese la fecha del concurso</div>
+                          </div>
+          
+                          <div class="col-md-6">
+                              <label for="TemaConcurso" class="form-label">Tema del concurso(Opcional)</label>
+                              <input type="text" class="form-control form-control-mini" id="TemaConcurso" placeholder="" readonly>
+                          </div>
+          
+                          <div class="col-md-6">
+                              <label for="CategoriaConcurso" class="form-label">Categoría del concurso</label>
+                              <select class="form-select" id="CategoriaConcurso" required disabled>
+                                  <option value="" disabled selected>Selecciona una categoría</option>
+                                  <option value="infantil">Infantil</option>
+                                  <option value="juvenil">Juvenil</option>
+                                  <option value="adulto">Adulto</option>
+                                  <option value="no_aplica">N/A</option>
+                              </select>
+                          </div>
+                          <div class="text-center"> 
+                            <button id = "eliminarConcurso" type="button" class="btn btn-primary" >Eliminar</button>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+  
+
+                      </form><!-- End Multi Columns Form -->
+                  </div>
+              </div> 
+          </div>
+      </div>
+  </section>
+
+                </form><!-- End Multi Columns Form -->
+              </div>
+            </div> 
+        </div>
+      
+      </div>
+      
+ 
+
+  
+      </div>
+    </main>
+  </div>
+</main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Table Sorter - Ordenamiento de tablas -->
+  <script src="Modelo/Utils/TableSorter.js"></script>
+  
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script type="module" src="C/Controller_Concurso.js" > </script>
+
+
+</body>
+
+</html>
